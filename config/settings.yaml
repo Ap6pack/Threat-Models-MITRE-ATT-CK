@@ -1,0 +1,145 @@
+# Threat Models and MITRE ATT&CK Mapping Tool Configuration
+
+# API URLs and endpoints
+api_url: 'https://attack-taxii.mitre.org/api/v21/'
+mitre_attack_url: 'https://attack-taxii.mitre.org/api/v21/collections/'
+otx_api_url: 'https://otx.alienvault.com/api/v1/indicators/export'
+vt_api_url: 'https://www.virustotal.com/api/v3/intelligence/hunting_notifications'
+
+# API keys (replace with your actual API keys)
+otx_api_key: ''  # AlienVault OTX API key
+vt_api_key: ''   # VirusTotal API key
+
+# File paths
+raw_data_path: 'data/raw/mitre_attack_data.json'
+processed_data_path: 'data/processed/normalized_mitre_data.json'
+log_file_path: 'logs/app.log'
+report_template_path: 'reports/report_template.html'
+
+# Database configuration
+database:
+  dbname: 'threat_intelligence'
+  user: 'postgres'
+  password: 'postgres'
+  host: 'localhost'
+  port: '5432'
+
+# Scheduling configuration
+update_interval_minutes: 60  # How often to update threat data (in minutes)
+
+# Machine learning configuration
+ml_model:
+  type: 'logistic_regression'  # Options: 'naive_bayes', 'logistic_regression'
+  max_features: 1000
+  ngram_range: [1, 2]
+  model_path: 'models/threat_mapping_model.pkl'
+  vectorizer_path: 'models/threat_mapping_vectorizer.pkl'
+
+# Visualization configuration
+visualization:
+  map_center: [20, 0]  # Default map center [latitude, longitude]
+  map_zoom: 2          # Default map zoom level
+  chart_width: 12      # Chart width in inches
+  chart_height: 8      # Chart height in inches
+
+# Reporting configuration
+reporting:
+  formats:
+    - html
+    - pdf
+    - csv
+    - json
+  output_dir: 'reports'
+
+# SIEM Integration Configuration
+siem:
+  # Splunk Configuration
+  splunk:
+    enabled: true
+    base_url: 'https://splunk.example.com:8089'
+    api_endpoint: '/services/search/jobs'
+    username: 'splunk_api_user'
+    password: 'splunk_api_password'
+    app: 'search'
+    owner: 'admin'
+    hec_token: 'your-hec-token-here'
+    verify_ssl: true
+    timeout: 30
+  
+  # Elastic SIEM Configuration
+  elastic:
+    enabled: false
+    base_url: 'https://elasticsearch.example.com:9200'
+    api_endpoint: '/_search'
+    username: 'elastic_user'
+    password: 'elastic_password'
+    index_pattern: 'threat-*'
+    verify_ssl: true
+    timeout: 30
+  
+  # QRadar Configuration
+  qradar:
+    enabled: false
+    base_url: 'https://qradar.example.com'
+    api_endpoint: '/api/ariel/searches'
+    api_key: 'qradar_api_key_here'
+    verify_ssl: true
+    timeout: 30
+
+# SOAR Integration Configuration
+soar:
+  # Cortex XSOAR (formerly Demisto) Configuration
+  cortex_xsoar:
+    enabled: true
+    base_url: 'https://xsoar.example.com'
+    api_endpoint: '/incidents'
+    api_key: 'xsoar_api_key_here'
+    verify_ssl: false
+    timeout: 30
+    incident_type: 'MITRE Attack Alert'
+  
+  # Google Chronicle SOAR Configuration
+  chronicle:
+    enabled: false
+    base_url: 'https://backstory.googleapis.com'
+    api_endpoint: '/v1/detect/rules'
+    credentials_file: 'path/to/credentials.json'
+    verify_ssl: true
+    timeout: 30
+  
+  # Splunk SOAR Configuration
+  splunk_soar:
+    enabled: false
+    base_url: 'https://splunk-soar.example.com'
+    api_endpoint: '/rest/container'
+    api_key: 'splunk_soar_api_key_here'
+    verify_ssl: true
+    timeout: 30
+
+# Integration Workflows
+integration_workflows:
+  # Workflow for new threat detection
+  new_threat_detection:
+    enabled: true
+    siem_query_interval_minutes: 15
+    severity_threshold: 'medium'  # minimum severity to create SOAR case
+    auto_create_case: true
+    notify_channels:
+      - email
+      - slack
+  
+  # Workflow for threat correlation
+  threat_correlation:
+    enabled: true
+    correlation_window_hours: 24
+    min_correlation_score: 0.6
+    auto_update_case: true
+  
+  # Workflow for response actions
+  response_actions:
+    enabled: false
+    auto_response: false  # Set to true for automated response actions
+    approved_actions:
+      - block_ip
+      - isolate_host
+      - scan_endpoint

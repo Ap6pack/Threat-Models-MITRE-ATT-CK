@@ -1,0 +1,58 @@
+
+import requests
+import json
+import os
+
+def fetch_mitre_attack_data():
+    url = "https://api.attack.mitre.org/techniques/"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        raise Exception(f"Failed to fetch data, status code: {response.status_code}")
+
+def store_raw_data(data, filename="mitre_attack_data.json"):
+    path = os.path.join("data/raw", filename)
+    with open(path, "w") as file:
+        json.dump(data, file)
+    print(f"Data saved to {path}")
+
+def normalize_data(raw_data):
+    normalized_data = []
+    for item in raw_data:
+        normalized_item = {
+            "technique_id": item.get("id"),
+            "technique_name": item.get("name"),
+            "description": item.get("description"),
+            "tactic": item.get("kill_chain_phases")[0]["phase_name"] if "kill_chain_phases" in item else None
+        }
+        normalized_data.append(normalized_item)
+    return normalized_data
+
+def create_db():
+    import sqlite3
+    conn = sqlite3.connect("data/processed/threat_data.db")
+    cursor = conn.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS mitre_techniques
+                     (technique_id TEXT PRIMARY KEY, technique_name TEXT, description TEXT, tactic TEXT)''')
+    conn.commit()
+    conn.close()
+
+def insert_data(normalized_data):
+    import sqlite3
+    conn = sqlite3.connect("data/processed/threat_data.db")
+    cursor = conn.cursor()
+    for item in normalized_data:
+        cursor.execute('''INSERT OR REPLACE INTO mitre_techniques (technique_id, technique_name, description, tactic) 
+                          VALUES (?, ?, ?, ?)''', 
+                          (item["technique_id"], item["technique_name"], item["description"], item["tactic"]))
+    conn.commit()
+    conn.close()
+
+# Workflow
+if __name__ == "__main__":
+    data = fetch_mitre_attack_data()
+    store_raw_data(data)
+    normalized_data = normalize_data(data)
+    create_db()
+    insert_data(normalized_data)

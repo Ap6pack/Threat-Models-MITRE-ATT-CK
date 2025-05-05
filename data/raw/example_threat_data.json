@@ -1,0 +1,42 @@
+[
+    {
+        "id": "T1193",
+        "description": "Phishing attack using spear-phishing link"
+    },
+    {
+        "id": "T1003",
+        "description": "Credential dumping using Mimikatz"
+    },
+    {
+        "id": "T1075",
+        "description": "Lateral movement using pass-the-hash technique"
+    },
+    {
+        "id": "T1041",
+        "description": "Data exfiltration via HTTPS"
+    },
+    {
+        "id": "T1486",
+        "description": "Ransomware attack encrypting user files"
+    },
+    {
+        "id": "T1204.002",
+        "description": "Spear phishing with malicious attachment"
+    },
+    {
+        "id": "T1059.001",
+        "description": "Using PowerShell for remote code execution"
+    },
+    {
+        "id": "T1190",
+        "description": "SQL injection attack to extract database information"
+    },
+    {
+        "id": "T1068",
+        "description": "Privilege escalation using local exploit"
+    },
+    {
+        "id": "T1110.001",
+        "description": "Brute force attack on admin credentials"
+    }
+]

@@ -1,0 +1,302 @@
+/* Responsive Styles for Threat Dashboard */
+
+/* Base styles */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Header styles */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.app-header {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.8rem;
+}
+
+.stats {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin: 10px 0;
+}
+
+/* Main content layout */
+#main-content {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+
+/* Filter panel */
+#filter-panel {
+    flex: 0 0 25%;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    margin: 0 10px 20px 10px;
+}
+
+.filter-item {
+    margin-bottom: 15px;
+}
+
+.filter-item label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+/* Visualization panel */
+#visualization-panel {
+    flex: 0 0 70%;
+    padding: 0 10px;
+}
+
+.graph-container {
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Tab styling */
+.react-tabs__tab-list {
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #ddd;
+    margin: 0 0 10px;
+    padding: 0;
+}
+
+.react-tabs__tab {
+    display: inline-block;
+    border: 1px solid transparent;
+    border-bottom: none;
+    bottom: -1px;
+    position: relative;
+    list-style: none;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.react-tabs__tab--selected {
+    background: #fff;
+    border-color: #ddd;
+    border-bottom-color: #fff;
+    border-radius: 5px 5px 0 0;
+}
+
+/* Button styling */
+button {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin: 5px 0;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+button:hover {
+    background-color: #e9ecef;
+}
+
+.button-primary {
+    background-color: #3498db;
+    color: white;
+    border: none;
+}
+
+.button-primary:hover {
+    background-color: #2980b9;
+}
+
+.export-button {
+    width: 100%;
+    margin: 5px 0;
+}
+
+/* Table styling */
+.table-container {
+    margin: 20px 0;
+}
+
+.dash-table-container {
+    overflow-x: auto;
+}
+
+/* Detail panel */
+#detail-panel {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.05);
+    width: 100%;
+}
+
+/* Footer styles */
+.footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #7f8c8d;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+}
+
+/* Responsive breakpoints */
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+    .app-container {
+        padding: 15px;
+    }
+    
+    #filter-panel, #visualization-panel {
+        padding: 10px;
+    }
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    .app-header {
+        font-size: 1.5rem;
+    }
+    
+    #main-content {
+        flex-direction: column;
+    }
+    
+    #filter-panel {
+        flex: 0 0 100%;
+        margin-bottom: 20px;
+        order: 1;
+    }
+    
+    #visualization-panel {
+        flex: 0 0 100%;
+        order: 2;
+    }
+    
+    .graph-container {
+        padding: 10px;
+    }
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+    .app-container {
+        padding: 10px;
+    }
+    
+    .app-header {
+        font-size: 1.2rem;
+    }
+    
+    .stats {
+        font-size: 0.9rem;
+    }
+    
+    .react-tabs__tab {
+        padding: 4px 8px;
+        font-size: 0.9rem;
+    }
+    
+    button {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    /* Collapse date range pickers on small screens */
+    .DateRangePicker {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .DateInput {
+        width: 100%;
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .app-header {
+        font-size: 1.1rem;
+    }
+    
+    #filter-panel, #visualization-panel, .graph-container {
+        padding: 8px;
+    }
+    
+    .filter-item {
+        margin-bottom: 10px;
+    }
+    
+    /* Make dropdowns full width */
+    .Select {
+        width: 100%;
+    }
+    
+    /* Stack tab buttons vertically */
+    .react-tabs__tab-list {
+        flex-direction: column;
+        border-bottom: none;
+    }
+    
+    .react-tabs__tab {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 4px;
+    }
+    
+    .react-tabs__tab--selected {
+        background-color: #f0f0f0;
+        border-bottom-color: #ddd;
+    }
+}
+
+/* Print styles */
+@media print {
+    body {
+        background-color: white;
+    }
+    
+    .app-container {
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+    }
+    
+    #filter-panel, .footer, button {
+        display: none;
+    }
+    
+    #visualization-panel {
+        flex: 0 0 100%;
+        padding: 0;
+    }
+    
+    .graph-container {
+        box-shadow: none;
+        break-inside: avoid;
+    }
+}
