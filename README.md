@@ -51,7 +51,7 @@ Threat-Models-MITRE-ATT&CK/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/Threat-Models-MITRE-ATT&CK.git
+   git clone https://github.com/Ap6pack/Threat-Models-MITRE-ATT&CK.git
    cd Threat-Models-MITRE-ATT&CK
    ```
 
